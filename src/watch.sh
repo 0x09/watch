@@ -5,6 +5,13 @@
 db="$HOME/Library/Application Support/net.0x09.watch/watch.db"
 launchagent="$HOME/Library/LaunchAgents/net.0x09.watch.plist"
 
+AWK=awk
+have_gawk=0
+if command -v gawk 2&>/dev/null; then
+	AWK=gawk # for strftime
+	have_gawk=1
+fi
+
 sub=$1
 shift
 case "$sub" in
@@ -50,7 +57,7 @@ case "$sub" in
 		sqlite3 "$db" "
 			select sum(duration),'*',$perday(time),max(time),min(time) from events $filters;
 			select sum(duration),name from events natural join applications $filters group by name order by sum(duration) desc
-		" | awk '
+		" | $AWK -v have_gawk=$have_gawk '
 			function format(ts){
 				ts/=1e9;
 				return sprintf("%u:%02u:%02u:%02u",ts/86400,int(ts/3600)%24,int(ts/60)%60,ts%60)
@@ -58,7 +65,8 @@ case "$sub" in
 			BEGIN{ FS="|" }
 			NR==1{
 				total=$1;
-				print "since",strftime("%F %T %z",$5)
+				if(have_gawk)
+					print "since",strftime("%F %T %z",$5)
 				days=($4-$3)/86400
 			}
 			$1>5*60*1e9 { printf("%s|%s|%6.2f%%\n",$2,format($1/days),$1*100/total) }
