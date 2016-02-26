@@ -11,6 +11,7 @@ watch: src/watch.o src/idle.o
 	$(CC) -framework Cocoa -framework IOKit -lsqlite3 $(CFLAGS) -o $@ $^
 
 install: watch
+	mkdir -p $(BINPREFIX) $(PLISTPREFIX)
 	install watch $(BINPREFIX)/net.0x09.watch
 	install src/net.0x09.watch.plist $(PLISTPREFIX)/
 	install src/watch.sh $(BINPREFIX)/
