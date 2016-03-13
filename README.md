@@ -5,7 +5,7 @@ watch is a small, low footprint launchd daemon that listens for application swit
 #Building
 	make && make install
 
-installs the binary, launchd plist, and a small shell frontend. To start the daemon and begin logging, use
+installs the binary, launchd plist, and a small shell frontend. To (re)start the daemon and begin logging, use
 
 	watch.sh start
 

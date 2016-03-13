@@ -15,7 +15,10 @@ fi
 sub=$1
 shift
 case "$sub" in
-	start) launchctl load "$launchagent";;
+	start)
+		launchctl unload "$launchagent" 2> /dev/null
+		launchctl load "$launchagent"
+	;;
 	stop) launchctl unload "$launchagent";;
 	query) sqlite3 "$db" "$1";;
 	last)
