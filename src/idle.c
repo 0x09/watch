@@ -90,5 +90,5 @@ void ioidlelisten() {
 		}
 	});
 
-	dispatch_resume(idletimer);
+	dispatch_resume(ioisidle() ? returntimer : idletimer);
 }
