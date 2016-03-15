@@ -51,7 +51,7 @@ case "$sub" in
 				a) idle=true; unset -v min from to;;
 			esac
 		done
-		$idle || filters+=" and (idle = 0 or application = 9)"
+		$idle || filters+=" and idle = 0"
 		[ -n "$from" ] && filters+=" and time > $from"
 		[ -n "$to"   ] && filters+=" and time <= $to"
 		[ -n "$min"  ] && filters+=" and duration > $min*1e9"
