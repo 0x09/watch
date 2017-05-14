@@ -2,7 +2,7 @@ watch - very simple application usage logger for OS X 10.7+
 
 watch is a small, low footprint launchd daemon that listens for application switches and idle states and logs events to a simple sqlite database.
 
-#Building
+# Building
 	make && make install
 
 installs the binary, launchd plist, and a small shell frontend. To (re)start the daemon and begin logging, use
@@ -11,7 +11,7 @@ installs the binary, launchd plist, and a small shell frontend. To (re)start the
 
 To remove, `make uninstall`. To remove and get rid of the log db entirely, `make purge`.
 
-#Use
+# Use
 watch.sh is a very thin frontend over sqlite's command line application that allows easy access to the db and some obvious statistics.
 
 	Usage: watch.sh [start|stop|query|last|since|totals|help]
